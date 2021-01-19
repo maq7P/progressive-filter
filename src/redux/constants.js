@@ -1,0 +1,5 @@
+export const SET_POST = 'data/SET_POST'
+export const DATA_LOADED = 'data/DATA_LOADED'
+export const SET_USERS = 'data/SET_USERS'
+export const FILTER = 'data/FILTER'
+export const SHOW_DROPDOWN = 'data/SHOW_DROPDOWN'

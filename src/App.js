@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import './App.sass';
+
+// Bootstrap
+import {
+  Container
+} from 'react-bootstrap';
+
+import {useDispatch, useSelector} from "react-redux";
+
+// Components 
+import Item from './components/Item/Item';
+import {fetchData, fetchPosts, fetchUsers} from './redux/actions';
+import Search from "./components/Search/Search";
+import Loader from "./components/Spinner/Spinner";
 
 function App() {
+  const {showItems, users, isLoaded, errors}  = useSelector(({ data }) => data)
+  const dispatch = useDispatch()
+  React.useEffect(() => {
+    dispatch(fetchData())
+  }, [])
+
+  if(!isLoaded){
+    return <Loader/>
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Container>
+        <Search dispatch={dispatch}/>
+        <div className="d-flex justify-content-start flex-wrap App__content">
+          {errors.nothingFind &&
+            <div style={{margin: "auto"}}>
+              <h3>Ничего не найдено</h3>
+            </div>
+          }
+          {!errors.nothingFind && showItems && showItems.map((showItem,i) => (
+            <Item
+              key={Date.now() + i}
+              showItem={showItem}
+              user={users && users.filter(user => user.id === showItem.userId)}
+            />
+          ))}
+        </div>
+      </Container>
     </div>
   );
 }
 
-export default App;
+export default React.memo(App);

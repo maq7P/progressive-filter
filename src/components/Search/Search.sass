@@ -1,0 +1,25 @@
+.search
+  width: 355px
+  margin: auto
+  &__input
+    background-color: #f8f9fa
+    max-width: 300px
+    z-index: 1
+  &__btn
+    border: 1px solid #ced4da!important
+    border-bottom-right-radius: 0
+    border-top-right-radius: 0
+    border-right: 0px!important
+    z-index: 100
+    background-color: #f8f9fa
+    z-index: 2
+@media (max-width: 1200px)
+  .search
+    width: 78%
+    &__btn
+      width: 40px
+    &__input
+      max-width: 900px
+@media (max-width: 996px)
+  .search
+    width: 100%
